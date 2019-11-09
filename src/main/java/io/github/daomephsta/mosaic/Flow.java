@@ -5,8 +5,9 @@ public class Flow extends MosaicWidget
 	private final Direction direction;
 	private final MosaicWidget[] children;
 
-	public Flow(Direction direction, MosaicWidget[] children)
+	public Flow(Direction direction, LayoutSpecification layoutSpec, MosaicWidget[] children)
 	{
+		super(layoutSpec);
 		this.direction = direction;
 		this.children = children;
 	}
@@ -22,19 +23,13 @@ public class Flow extends MosaicWidget
 			return;
 		int availableSpace = direction.getAvailableSpace(this);
 		int nextChildCoord = direction.getStartCoord(this);
-		int baseChildSize = availableSpace / children.length;
-		int remainder = availableSpace % children.length;
 		for (MosaicWidget child : children)
 		{
 			direction.setFixedCoord(child, direction.getFixedCoord(this));
-			direction.setFixedDimension(child, direction.getFixedDimension(this));
+			direction.setFixedDimension(child,
+					direction.getFixedDimension(this));
 			direction.setVariableCoord(child, nextChildCoord);
-			int childSize = baseChildSize;
-			if (remainder > 0)
-			{
-				childSize += 1;
-				remainder -= 1;
-			}
+			int childSize = child.layoutSpec.computeSize(availableSpace);
 			direction.setVariableDimension(child, childSize);
 			nextChildCoord += childSize;
 			if (child instanceof Flow)

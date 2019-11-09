@@ -1,4 +1,4 @@
-package io.github.daomephsta.mosaic.test.manual;
+package io.github.daomephsta.mosaic.test.manual.flow;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -9,16 +9,16 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import io.github.daomephsta.mosaic.Flow;
-import io.github.daomephsta.mosaic.LayoutSpecification;
 import io.github.daomephsta.mosaic.Size;
-import io.github.daomephsta.mosaic.Flow.Direction;
+import io.github.daomephsta.mosaic.flow.Flow;
+import io.github.daomephsta.mosaic.flow.FlowLayoutData;
+import io.github.daomephsta.mosaic.flow.Flow.Direction;
 
-public class ManualTest
+public class ManualFlowTest
 {
 	public static void main(String[] args)
 	{
-		SwingUtilities.invokeLater(ManualTest::createAndShowGUI);
+		SwingUtilities.invokeLater(ManualFlowTest::createAndShowGUI);
 	}
 
 	private static void createAndShowGUI()
@@ -36,17 +36,17 @@ public class ManualTest
 	{
 	    TestFlow root = new TestFlow(Direction.VERTICAL);
 	    Flow row1 = new TestFlow(Direction.HORIZONTAL)
-	        .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(33.33)))
-	        .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(66.66)));
-	    root.add(row1, new LayoutSpecification().setSize(Size.percentage(33.33)));
+	        .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)))
+	        .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)));
+	    root.add(row1, new FlowLayoutData().setSize(Size.percentage(33.33)));
 	    Flow row2 = new TestFlow(Direction.HORIZONTAL)
-            .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(66.66)))
-            .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(33.33)));
-	    root.add(row2, new LayoutSpecification().setSize(Size.percentage(33.33)));
+            .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)))
+            .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)));
+	    root.add(row2, new FlowLayoutData().setSize(Size.percentage(33.33)));
 	    Flow row3 = new TestFlow(Direction.HORIZONTAL)
-            .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(33.33)))
-            .add(new TestWidget(), new LayoutSpecification().setSize(Size.percentage(66.66)));
-	    root.add(row3, new LayoutSpecification().setSize(Size.percentage(33.33)));
+            .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)))
+            .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)));
+	    root.add(row3, new FlowLayoutData().setSize(Size.percentage(33.33)));
         return root;
 	}
 

@@ -1,4 +1,4 @@
-package io.github.daomephsta.mosaic.test.manual;
+package io.github.daomephsta.mosaic.test.manual.flow;
 
 import java.awt.Color;
 import java.awt.Graphics;

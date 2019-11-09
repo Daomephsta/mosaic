@@ -1,6 +1,8 @@
-package io.github.daomephsta.mosaic;
+package io.github.daomephsta.mosaic.flow;
 
-public class LayoutSpecification
+import io.github.daomephsta.mosaic.Size;
+
+public class FlowLayoutData
 {
     private Size size = null;
     private int minSize = 1,
@@ -13,19 +15,19 @@ public class LayoutSpecification
                 .min(Math.max(size.toAbsolute(parentSize), minSize), maxSize));
     }
 
-    public LayoutSpecification setSize(Size size)
+    public FlowLayoutData setSize(Size size)
     {
         this.size = size;
         return this;
     }
 
-    public LayoutSpecification setMinSize(int minSize)
+    public FlowLayoutData setMinSize(int minSize)
     {
         this.minSize = minSize;
         return this;
     }
 
-    public LayoutSpecification setMaxSize(int maxSize)
+    public FlowLayoutData setMaxSize(int maxSize)
     {
         this.maxSize = maxSize;
         return this;

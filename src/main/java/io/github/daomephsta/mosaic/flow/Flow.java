@@ -1,25 +1,28 @@
-package io.github.daomephsta.mosaic;
+package io.github.daomephsta.mosaic.flow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.daomephsta.mosaic.MosaicWidget;
+import io.github.daomephsta.mosaic.ParentWidget;
+
 public class Flow extends MosaicWidget implements ParentWidget
 {
 	private final Direction direction;
 	private final List<MosaicWidget> children = new ArrayList<>();
-	private final Map<MosaicWidget, LayoutSpecification> layoutSpecifications = new HashMap<>();
+	private final Map<MosaicWidget, FlowLayoutData> childLayoutData = new HashMap<>();
 
 	public Flow(Direction direction)
 	{
 		this.direction = direction;
 	}
 
-	public Flow add(MosaicWidget mosaicWidget, LayoutSpecification layoutSpec)
+	public Flow add(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
 	{
 	    children.add(mosaicWidget);
-	    layoutSpecifications.put(mosaicWidget, layoutSpec);
+	    childLayoutData.put(mosaicWidget, layoutData);
 	    return this;
 	}
 
@@ -41,7 +44,7 @@ public class Flow extends MosaicWidget implements ParentWidget
 			direction.setFixedDimension(child,
 					direction.getFixedDimension(this));
 			direction.setVariableCoord(child, nextChildCoord);
-			int childSize = layoutSpecifications.get(child).computeSize(availableSpace);
+			int childSize = childLayoutData.get(child).computeSize(availableSpace);
 			direction.setVariableDimension(child, childSize);
 			nextChildCoord += childSize;
 			if (child instanceof ParentWidget)

@@ -1,9 +1,9 @@
-package io.github.daomephsta.mosaic.test.manual;
+package io.github.daomephsta.mosaic.test.manual.flow;
 
 import java.awt.Graphics;
 
-import io.github.daomephsta.mosaic.Flow;
 import io.github.daomephsta.mosaic.MosaicWidget;
+import io.github.daomephsta.mosaic.flow.Flow;
 
 public class TestFlow extends Flow implements Paintable
 {

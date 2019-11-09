@@ -1,25 +1,37 @@
 package io.github.daomephsta.mosaic;
 
-public class Flow extends MosaicWidget
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Flow extends MosaicWidget implements ParentWidget
 {
 	private final Direction direction;
-	private final MosaicWidget[] children;
+	private final List<MosaicWidget> children = new ArrayList<>();
+	private final Map<MosaicWidget, LayoutSpecification> layoutSpecifications = new HashMap<>();
 
-	public Flow(Direction direction, LayoutSpecification layoutSpec, MosaicWidget[] children)
+	public Flow(Direction direction)
 	{
-		super(layoutSpec);
 		this.direction = direction;
-		this.children = children;
 	}
 
-	public MosaicWidget[] getChildren()
+	public Flow add(MosaicWidget mosaicWidget, LayoutSpecification layoutSpec)
+	{
+	    children.add(mosaicWidget);
+	    layoutSpecifications.put(mosaicWidget, layoutSpec);
+	    return this;
+	}
+
+	public Iterable<MosaicWidget> getChildren()
 	{
 		return children;
 	}
 
-	public void layoutChildren()
+	@Override
+    public void layoutChildren()
 	{
-		if (children.length == 0)
+		if (children.size() == 0)
 			return;
 		int availableSpace = direction.getAvailableSpace(this);
 		int nextChildCoord = direction.getStartCoord(this);
@@ -29,11 +41,11 @@ public class Flow extends MosaicWidget
 			direction.setFixedDimension(child,
 					direction.getFixedDimension(this));
 			direction.setVariableCoord(child, nextChildCoord);
-			int childSize = child.layoutSpec.computeSize(availableSpace);
+			int childSize = layoutSpecifications.get(child).computeSize(availableSpace);
 			direction.setVariableDimension(child, childSize);
 			nextChildCoord += childSize;
-			if (child instanceof Flow)
-				((Flow) child).layoutChildren();
+			if (child instanceof ParentWidget)
+				((ParentWidget) child).layoutChildren();
 		}
 	}
 

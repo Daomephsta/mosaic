@@ -40,12 +40,9 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 		int nextChildCoord = direction.getStartCoord(this);
 		for (MosaicWidget child : children)
 		{
-			direction.setFixedCoord(child, direction.getFixedCoord(this));
-			direction.setFixedDimension(child,
-					direction.getFixedDimension(this));
-			direction.setVariableCoord(child, nextChildCoord);
 			int childSize = childLayoutData.get(child).computeSize(availableSpace);
-			direction.setVariableDimension(child, childSize);
+			direction.setLayoutParameters(child, direction.getFixedCoord(this), direction.getFixedDimension(this),
+			    nextChildCoord, childSize);
 			nextChildCoord += childSize;
 			if (child instanceof ParentWidget)
 				((ParentWidget) child).layoutChildren();
@@ -56,77 +53,66 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 	{
 		HORIZONTAL
 		{
-			@Override
-			public void setFixedCoord(MosaicWidget widget, int fixedCoord)
-			{ widget.y = fixedCoord; }
+		    @Override
+            void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,
+                int variableCoord, int variableDimension)
+			{
 
-			@Override
-			public void setFixedDimension(MosaicWidget widget, int fixedDimension)
-			{widget.height = fixedDimension; }
-
-			@Override
-			public void setVariableCoord(MosaicWidget widget, int variableCoord)
-			{ widget.x = variableCoord; }
-
-			@Override
-			public void setVariableDimension(MosaicWidget widget, int variableDimension)
-			{ widget.width = variableDimension; }
+		        int y = fixedCoord;
+		        int height = fixedDimension;
+		        int x = variableCoord;
+		        int width = variableDimension;
+		        widget.setLayoutParameters(x, y, width, height);
+			}
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.width; }
+			{ return flow.width(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.y; }
+			{ return flow.y(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.height; }
+			{ return flow.height(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.x; }
+			{ return flow.x(); }
 		},
 		VERTICAL
 		{
-			@Override
-			public void setFixedCoord(MosaicWidget widget, int fixedCoord)
-			{ widget.x = fixedCoord; }
-
-			@Override
-			public void setFixedDimension(MosaicWidget widget, int fixedDimension)
-			{ widget.width = fixedDimension; }
-
-			@Override
-			public void setVariableCoord(MosaicWidget widget, int variableCoord)
-			{ widget.y = variableCoord; }
-
-			@Override
-			public void setVariableDimension(MosaicWidget widget, int variableDimension)
-			{ widget.height = variableDimension; }
+		    @Override
+            void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,
+		        int variableCoord, int variableDimension)
+			{
+		        int x = fixedCoord;
+		        int width = fixedDimension;
+		        int y = variableCoord;
+		        int height = variableDimension;
+		        widget.setLayoutParameters(x, y, width, height);
+			}
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.height; }
+			{ return flow.height(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.x; }
+			{ return flow.x(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.width; }
+			{ return flow.width(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.y; }
+			{ return flow.y(); }
 		};
 
-		abstract void setFixedCoord(MosaicWidget widget, int fixedCoord);
-		abstract void setFixedDimension(MosaicWidget widget, int fixedDimension);
-		abstract void setVariableCoord(MosaicWidget widget, int variableCoord);
-		abstract void setVariableDimension(MosaicWidget widget, int variableDimension);
+		abstract void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,
+		    int variableCoord, int variableDimension);
 		abstract int getAvailableSpace(Flow<?> flow);
 		abstract int getStartCoord(Flow<?> flow);
 		abstract int getFixedCoord(Flow<?> flow);

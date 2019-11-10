@@ -22,9 +22,9 @@ public class TestWidget extends MosaicWidget implements Paintable
 	public void paint(Graphics g)
 	{
 		g.setColor(debugFill);
-		g.fillRect(x, y, width, height);
+		g.fillRect(x(), y(), width(), height());
 		g.setColor(Color.WHITE);
-		g.drawRect(x, y, width - 1, height - 1);
+		g.drawRect(x(), y(), width() - 1, height() - 1);
 	}
 
 	public TestWidget setDebugFill(Color debugFill)

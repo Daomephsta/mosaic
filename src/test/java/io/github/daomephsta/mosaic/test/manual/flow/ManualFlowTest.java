@@ -69,10 +69,7 @@ public class ManualFlowTest
 		public void setBounds(int x, int y, int width, int height)
 		{
 			super.setBounds(x, y, width, height);
-			rootFlow.x = x;
-			rootFlow.y = y;
-			rootFlow.width = width;
-			rootFlow.height = height;
+			rootFlow.setLayoutParameters(x, y, width, height);
 			rootFlow.layoutChildren();
 		}
 	}

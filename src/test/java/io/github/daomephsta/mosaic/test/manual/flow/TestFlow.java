@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import io.github.daomephsta.mosaic.MosaicWidget;
 import io.github.daomephsta.mosaic.flow.Flow;
 
-public class TestFlow extends Flow implements Paintable
+public class TestFlow extends Flow<MosaicWidget> implements Paintable
 {
 	public TestFlow(Direction direction)
 	{

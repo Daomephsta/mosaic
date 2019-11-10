@@ -35,15 +35,15 @@ public class ManualFlowTest
 	private static TestFlow createRootFlow()
 	{
 	    TestFlow root = new TestFlow(Direction.VERTICAL);
-	    Flow row1 = new TestFlow(Direction.HORIZONTAL)
+	    Flow<?> row1 = new TestFlow(Direction.HORIZONTAL)
 	        .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)))
 	        .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)));
 	    root.add(row1, new FlowLayoutData().setSize(Size.percentage(33.33)));
-	    Flow row2 = new TestFlow(Direction.HORIZONTAL)
+	    Flow<?> row2 = new TestFlow(Direction.HORIZONTAL)
             .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)))
             .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)));
 	    root.add(row2, new FlowLayoutData().setSize(Size.percentage(33.33)));
-	    Flow row3 = new TestFlow(Direction.HORIZONTAL)
+	    Flow<?> row3 = new TestFlow(Direction.HORIZONTAL)
             .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(33.33)))
             .add(new TestWidget(), new FlowLayoutData().setSize(Size.percentage(66.66)));
 	    root.add(row3, new FlowLayoutData().setSize(Size.percentage(33.33)));

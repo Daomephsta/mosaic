@@ -8,25 +8,25 @@ import java.util.Map;
 import io.github.daomephsta.mosaic.MosaicWidget;
 import io.github.daomephsta.mosaic.ParentWidget;
 
-public class Flow extends MosaicWidget implements ParentWidget
+public class Flow<E extends MosaicWidget> extends MosaicWidget implements ParentWidget
 {
 	private final Direction direction;
-	private final List<MosaicWidget> children = new ArrayList<>();
-	private final Map<MosaicWidget, FlowLayoutData> childLayoutData = new HashMap<>();
+	private final List<E> children = new ArrayList<>();
+	private final Map<E, FlowLayoutData> childLayoutData = new HashMap<>();
 
 	public Flow(Direction direction)
 	{
 		this.direction = direction;
 	}
 
-	public Flow add(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
+	public Flow<E> add(E mosaicWidget, FlowLayoutData layoutData)
 	{
 	    children.add(mosaicWidget);
 	    childLayoutData.put(mosaicWidget, layoutData);
 	    return this;
 	}
 
-	public Iterable<MosaicWidget> getChildren()
+	public Iterable<E> getChildren()
 	{
 		return children;
 	}
@@ -73,19 +73,19 @@ public class Flow extends MosaicWidget implements ParentWidget
 			{ widget.width = variableDimension; }
 
 			@Override
-			int getAvailableSpace(Flow flow)
+			int getAvailableSpace(Flow<?> flow)
 			{ return flow.width; }
 
 			@Override
-			int getFixedCoord(Flow flow)
+			int getFixedCoord(Flow<?> flow)
 			{ return flow.y; }
 
 			@Override
-			int getFixedDimension(Flow flow)
+			int getFixedDimension(Flow<?> flow)
 			{ return flow.height; }
 
 			@Override
-			int getStartCoord(Flow flow)
+			int getStartCoord(Flow<?> flow)
 			{ return flow.x; }
 		},
 		VERTICAL
@@ -107,19 +107,19 @@ public class Flow extends MosaicWidget implements ParentWidget
 			{ widget.height = variableDimension; }
 
 			@Override
-			int getAvailableSpace(Flow flow)
+			int getAvailableSpace(Flow<?> flow)
 			{ return flow.height; }
 
 			@Override
-			int getFixedCoord(Flow flow)
+			int getFixedCoord(Flow<?> flow)
 			{ return flow.x; }
 
 			@Override
-			int getFixedDimension(Flow flow)
+			int getFixedDimension(Flow<?> flow)
 			{ return flow.width; }
 
 			@Override
-			int getStartCoord(Flow flow)
+			int getStartCoord(Flow<?> flow)
 			{ return flow.y; }
 		};
 
@@ -127,9 +127,9 @@ public class Flow extends MosaicWidget implements ParentWidget
 		abstract void setFixedDimension(MosaicWidget widget, int fixedDimension);
 		abstract void setVariableCoord(MosaicWidget widget, int variableCoord);
 		abstract void setVariableDimension(MosaicWidget widget, int variableDimension);
-		abstract int getAvailableSpace(Flow flow);
-		abstract int getStartCoord(Flow flow);
-		abstract int getFixedCoord(Flow flow);
-		abstract int getFixedDimension(Flow flow);
+		abstract int getAvailableSpace(Flow<?> flow);
+		abstract int getStartCoord(Flow<?> flow);
+		abstract int getFixedCoord(Flow<?> flow);
+		abstract int getFixedDimension(Flow<?> flow);
 	}
 }

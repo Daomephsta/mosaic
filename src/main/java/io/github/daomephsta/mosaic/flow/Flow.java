@@ -62,19 +62,19 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.width(); }
+			{ return flow.width() - flow.padding.left() - flow.padding.right(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.y(); }
+			{ return flow.y() + flow.padding.top(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.height(); }
+			{ return flow.height() - flow.padding.top() - flow.padding.bottom(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.x(); }
+			{ return flow.x() + flow.padding.left(); }
 		},
 		VERTICAL
 		{
@@ -87,19 +87,19 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.height(); }
+			{ return flow.height() - flow.padding.top() - flow.padding.bottom(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.x(); }
+			{ return flow.x() + flow.padding.left(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.width(); }
+			{ return flow.width() - flow.padding.left() - flow.padding.right(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.y(); }
+			{ return flow.y() + flow.padding.top(); }
 		};
 
 		abstract void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,

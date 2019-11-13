@@ -39,4 +39,8 @@ public abstract class MosaicWidget
         this.width = width;
         this.height = height;
     }
+
+    public int hintHeight() { return 1; }
+
+    public int hintWidth() { return 1; }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import io.github.daomephsta.mosaic.MosaicWidget;
 import io.github.daomephsta.mosaic.ParentWidget;
@@ -19,12 +20,27 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 		this.direction = direction;
 	}
 
-	public Flow<E> add(E mosaicWidget, FlowLayoutData layoutData)
+	public Flow<E> add(E mosaicWidget, Consumer<FlowLayoutData> layoutDataConfig)
 	{
-	    children.add(mosaicWidget);
-	    childLayoutData.put(mosaicWidget, layoutData);
-	    return this;
+        FlowLayoutData layoutData = new FlowLayoutData();
+        direction.applyHints(mosaicWidget, layoutData);
+        layoutDataConfig.accept(layoutData);
+	    return add(mosaicWidget, layoutData);
 	}
+
+	public Flow<E> add(E mosaicWidget)
+    {
+        FlowLayoutData layoutData = new FlowLayoutData();
+        direction.applyHints(mosaicWidget, layoutData);
+        return add(mosaicWidget, layoutData);
+    }
+
+    private Flow<E> add(E mosaicWidget, FlowLayoutData layoutData)
+    {
+        children.add(mosaicWidget);
+        childLayoutData.put(mosaicWidget, layoutData);
+        return this;
+    }
 
 	public Iterable<E> getChildren()
 	{
@@ -75,6 +91,10 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 			@Override
 			int getStartCoord(Flow<?> flow)
 			{ return flow.x() + flow.padding.left(); }
+
+            @Override
+            void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
+            { layoutData.setMinSize(mosaicWidget.hintWidth()); }
 		},
 		VERTICAL
 		{
@@ -100,13 +120,18 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 			@Override
 			int getStartCoord(Flow<?> flow)
 			{ return flow.y() + flow.padding.top(); }
+
+			@Override
+			void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
+			{ layoutData.setMinSize(mosaicWidget.hintHeight()); }
 		};
 
 		abstract void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,
 		    int variableCoord, int variableDimension);
-		abstract int getAvailableSpace(Flow<?> flow);
+        abstract int getAvailableSpace(Flow<?> flow);
 		abstract int getStartCoord(Flow<?> flow);
 		abstract int getFixedCoord(Flow<?> flow);
 		abstract int getFixedDimension(Flow<?> flow);
+        abstract void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData);
 	}
 }

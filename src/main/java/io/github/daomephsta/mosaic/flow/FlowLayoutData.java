@@ -4,7 +4,7 @@ import io.github.daomephsta.mosaic.Size;
 
 public class FlowLayoutData
 {
-    private Size size = null;
+    private Size size = Size.DEFAULT;
     private int minSize = 1,
                 maxSize = Integer.MAX_VALUE;
 

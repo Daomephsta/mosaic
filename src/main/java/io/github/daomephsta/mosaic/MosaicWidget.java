@@ -3,7 +3,8 @@ package io.github.daomephsta.mosaic;
 public abstract class MosaicWidget
 {
 	private int x, y, width, height;
-    public final EdgeSpacing padding = new EdgeSpacing();
+    public final EdgeSpacing padding = new EdgeSpacing(),
+                             margin = new EdgeSpacing();
 
 	@Override
 	public String toString()

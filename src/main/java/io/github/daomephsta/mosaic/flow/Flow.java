@@ -57,9 +57,10 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 		for (MosaicWidget child : children)
 		{
 			int childSize = childLayoutData.get(child).computeSize(availableSpace);
+			nextChildCoord += direction.getLeadingMargin(child);
 			direction.setLayoutParameters(child, direction.getFixedCoord(this), direction.getFixedDimension(this),
 			    nextChildCoord, childSize);
-			nextChildCoord += childSize;
+			nextChildCoord += childSize + direction.getTrailingMargin(child);
 			if (child instanceof ParentWidget)
 				((ParentWidget) child).layoutChildren();
 		}
@@ -93,6 +94,14 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 			{ return flow.x() + flow.padding.left(); }
 
             @Override
+            int getLeadingMargin(MosaicWidget widget)
+            { return widget.margin.left(); }
+
+            @Override
+            int getTrailingMargin(MosaicWidget widget)
+            { return widget.margin.right(); }
+
+            @Override
             void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
             { layoutData.setMinSize(mosaicWidget.hintWidth()); }
 		},
@@ -122,6 +131,14 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 			{ return flow.y() + flow.padding.top(); }
 
 			@Override
+			int getLeadingMargin(MosaicWidget widget)
+			{ return widget.margin.top(); }
+
+			@Override
+            int getTrailingMargin(MosaicWidget widget)
+            { return widget.margin.bottom(); }
+
+			@Override
 			void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
 			{ layoutData.setMinSize(mosaicWidget.hintHeight()); }
 		};
@@ -132,6 +149,8 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 		abstract int getStartCoord(Flow<?> flow);
 		abstract int getFixedCoord(Flow<?> flow);
 		abstract int getFixedDimension(Flow<?> flow);
+		abstract int getLeadingMargin(MosaicWidget widget);
+        abstract int getTrailingMargin(MosaicWidget widget);
         abstract void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData);
 	}
 }

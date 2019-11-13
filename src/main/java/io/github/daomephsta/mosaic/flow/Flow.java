@@ -79,27 +79,27 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.width() - flow.padding.left() - flow.padding.right(); }
+			{ return flow.width() - flow.padding().left() - flow.padding().right(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.y() + flow.padding.top(); }
+			{ return flow.y() + flow.padding().top(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.height() - flow.padding.top() - flow.padding.bottom(); }
+			{ return flow.height() - flow.padding().top() - flow.padding().bottom(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.x() + flow.padding.left(); }
+			{ return flow.x() + flow.padding().left(); }
 
             @Override
             int getLeadingMargin(MosaicWidget widget)
-            { return widget.margin.left(); }
+            { return widget.margin().left(); }
 
             @Override
             int getTrailingMargin(MosaicWidget widget)
-            { return widget.margin.right(); }
+            { return widget.margin().right(); }
 
             @Override
             void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
@@ -116,27 +116,27 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
 			@Override
 			int getAvailableSpace(Flow<?> flow)
-			{ return flow.height() - flow.padding.top() - flow.padding.bottom(); }
+			{ return flow.height() - flow.padding().top() - flow.padding().bottom(); }
 
 			@Override
 			int getFixedCoord(Flow<?> flow)
-			{ return flow.x() + flow.padding.left(); }
+			{ return flow.x() + flow.padding().left(); }
 
 			@Override
 			int getFixedDimension(Flow<?> flow)
-			{ return flow.width() - flow.padding.left() - flow.padding.right(); }
+			{ return flow.width() - flow.padding().left() - flow.padding().right(); }
 
 			@Override
 			int getStartCoord(Flow<?> flow)
-			{ return flow.y() + flow.padding.top(); }
+			{ return flow.y() + flow.padding().top(); }
 
 			@Override
 			int getLeadingMargin(MosaicWidget widget)
-			{ return widget.margin.top(); }
+			{ return widget.margin().top(); }
 
 			@Override
             int getTrailingMargin(MosaicWidget widget)
-            { return widget.margin.bottom(); }
+            { return widget.margin().bottom(); }
 
 			@Override
 			void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)

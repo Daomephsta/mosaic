@@ -3,8 +3,8 @@ package io.github.daomephsta.mosaic;
 public abstract class MosaicWidget
 {
 	private int x, y, width, height;
-    public final EdgeSpacing padding = new EdgeSpacing(),
-                             margin = new EdgeSpacing();
+    private EdgeSpacing padding = new EdgeSpacing(),
+                        margin = new EdgeSpacing();
 
 	@Override
 	public String toString()
@@ -44,4 +44,24 @@ public abstract class MosaicWidget
     public int hintHeight() { return 1; }
 
     public int hintWidth() { return 1; }
+
+    public EdgeSpacing padding()
+    {
+        return padding;
+    }
+
+    public void setPadding(EdgeSpacing padding)
+    {
+        this.padding = padding;
+    }
+
+    public EdgeSpacing margin()
+    {
+        return margin;
+    }
+
+    public void setMargin(EdgeSpacing margin)
+    {
+        this.margin = margin;
+    }
 }

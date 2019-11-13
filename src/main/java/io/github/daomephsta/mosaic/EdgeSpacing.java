@@ -7,7 +7,7 @@ public class EdgeSpacing
                 top = 0,
                 bottom = 0;
 
-    public EdgeSpacing left(int left)
+    public EdgeSpacing setLeft(int left)
     {
         this.left = left;
         return this;
@@ -18,7 +18,7 @@ public class EdgeSpacing
         return this.left;
     }
 
-    public EdgeSpacing right(int right)
+    public EdgeSpacing setRight(int right)
     {
         this.right = right;
         return this;
@@ -29,7 +29,7 @@ public class EdgeSpacing
         return this.right;
     }
 
-    public EdgeSpacing top(int top)
+    public EdgeSpacing setTop(int top)
     {
         this.top = top;
         return this;
@@ -40,7 +40,7 @@ public class EdgeSpacing
         return this.top;
     }
 
-    public EdgeSpacing bottom(int bottom)
+    public EdgeSpacing setBottom(int bottom)
     {
         this.bottom = bottom;
         return this;
@@ -51,19 +51,19 @@ public class EdgeSpacing
         return this.bottom;
     }
 
-    public EdgeSpacing horizontal(int value)
+    public EdgeSpacing setHorizontal(int value)
     {
         this.left = this.right = value;
         return this;
     }
 
-    public EdgeSpacing vertical(int value)
+    public EdgeSpacing setVertical(int value)
     {
         this.top = this.bottom = value;
         return this;
     }
 
-    public EdgeSpacing all(int value)
+    public EdgeSpacing setAll(int value)
     {
         this.left = this.right = this.top = this.bottom = value;
         return this;

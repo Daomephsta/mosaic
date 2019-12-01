@@ -69,13 +69,13 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 	@Override
 	public int hintHeight()
 	{
-	    return children.stream().mapToInt(MosaicWidget::hintHeight).max().orElse(0);
+	    return children.stream().mapToInt(MosaicWidget::hintHeight).sum();
 	}
 
 	@Override
 	public int hintWidth()
 	{
-	    return children.stream().mapToInt(MosaicWidget::hintWidth).max().orElse(0);
+	    return children.stream().mapToInt(MosaicWidget::hintWidth).sum();
 	}
 
 	public enum Direction

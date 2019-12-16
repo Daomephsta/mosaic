@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import io.github.daomephsta.mosaic.Size;
+import io.github.daomephsta.mosaic.SizeConstraint;
 import io.github.daomephsta.mosaic.flow.Flow;
 import io.github.daomephsta.mosaic.flow.Flow.Direction;
 
@@ -35,17 +35,17 @@ public class ManualFlowTest
 	{
 	    TestFlow root = new TestFlow(Direction.VERTICAL);
 	    Flow<?> row1 = new TestFlow(Direction.HORIZONTAL)
-	        .add(new TestWidget(), d -> d.setSize(Size.percentage(33.33)))
-	        .add(new TestWidget(), d -> d.setSize(Size.percentage(66.66)));
-	    root.add(row1, d -> d.setSize(Size.percentage(33.33)));
+	        .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)))
+	        .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(66.66)));
+	    root.add(row1, d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)));
 	    Flow<?> row2 = new TestFlow(Direction.HORIZONTAL)
-            .add(new TestWidget(), d -> d.setSize(Size.percentage(66.66)))
-            .add(new TestWidget(), d -> d.setSize(Size.percentage(33.33)));
-	    root.add(row2, d -> d.setSize(Size.percentage(33.33)));
+            .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(66.66)))
+            .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)));
+	    root.add(row2, d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)));
 	    Flow<?> row3 = new TestFlow(Direction.HORIZONTAL)
-            .add(new TestWidget(), d -> d.setSize(Size.percentage(33.33)))
-            .add(new TestWidget(), d -> d.setSize(Size.percentage(66.66)));
-	    root.add(row3, d -> d.setSize(Size.percentage(33.33)));
+            .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)))
+            .add(new TestWidget(), d -> d.setSizeConstraint(SizeConstraint.percentage(66.66)));
+	    root.add(row3, d -> d.setSizeConstraint(SizeConstraint.percentage(33.33)));
         return root;
 	}
 

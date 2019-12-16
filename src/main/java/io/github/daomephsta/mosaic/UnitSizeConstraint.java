@@ -6,32 +6,32 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-class UnitSize extends Size
+class UnitSizeConstraint extends SizeConstraint
 {
 	private static final Pattern PATTERN = Pattern
-			.compile("(?<magnitude>\\d+(?:\\.\\d+)?)(?<unit>[a-z]+)?");
+			.compile("(?<magnitude>\\d+(?:\\.\\d+)?)(?<unit>.+)");
 
 	private final double magnitude;
 	private final Unit unit;
 
-	private UnitSize(double magnitude, Unit unit)
+	private UnitSizeConstraint(double magnitude, Unit unit)
 	{
 		unit.validate(magnitude);
 		this.magnitude = magnitude;
 		this.unit = unit;
 	}
 
-	public static UnitSize pixels(double pixels)
+	public static UnitSizeConstraint pixels(double pixels)
 	{
-		return new UnitSize(pixels, Unit.PIXELS);
+		return new UnitSizeConstraint(pixels, Unit.PIXELS);
 	}
 
-	public static UnitSize percentage(double percentage)
+	public static UnitSizeConstraint percentage(double percentage)
 	{
-		return new UnitSize(percentage, Unit.PERCENTAGE);
+		return new UnitSizeConstraint(percentage, Unit.PERCENTAGE);
 	}
 
-	public static UnitSize parse(String s) throws ParseException
+	public static UnitSizeConstraint parse(String s) throws ParseException
 	{
 		Matcher matcher = PATTERN.matcher(s);
 		if (matcher.matches())
@@ -43,9 +43,10 @@ class UnitSize extends Size
 				String unitString = matcher.group("unit");
 				Unit unit = Unit.UNIT_BY_ABBREVIATION.get(unitString);
 				if (unit == null)
-					throw new ParseException(unitString);
-				return new UnitSize(magnitude, unit);
-			} catch (IllegalArgumentException nfe)
+					throw new ParseException("Unknown unit " + unitString);
+				return new UnitSizeConstraint(magnitude, unit);
+			}
+			catch (IllegalArgumentException nfe)
 			{
 				throw new ParseException(nfe.getMessage());
 			}

@@ -1,35 +1,39 @@
 package io.github.daomephsta.mosaic.flow;
 
 import io.github.daomephsta.mosaic.Size;
+import io.github.daomephsta.mosaic.SizeConstraint;
 
 public class FlowLayoutData
 {
-    private Size size = Size.DEFAULT;
-    private int minSize = 1,
-                maxSize = Integer.MAX_VALUE;
+    private final Size size;
+
+    public FlowLayoutData(Size size)
+    {
+        this.size = size;
+    }
+
+    public FlowLayoutData()
+    {
+        this(new Size());
+    }
 
     public int computeSize(double parentSize)
     {
-        // Clamp within [minSize, maxSize] and round
-        return (int) Math.round(Math
-                .min(Math.max(size.toAbsolute(parentSize), minSize), maxSize));
+        return size.computeSize(parentSize);
     }
 
-    public FlowLayoutData setSize(Size size)
+    public Size setSizeConstraint(SizeConstraint constraint)
     {
-        this.size = size;
-        return this;
+        return size.setSizeConstraint(constraint);
     }
 
-    public FlowLayoutData setMinSize(int minSize)
+    public Size setMinSize(int minSize)
     {
-        this.minSize = minSize;
-        return this;
+        return size.setMinSize(minSize);
     }
 
-    public FlowLayoutData setMaxSize(int maxSize)
+    public Size setMaxSize(int maxSize)
     {
-        this.maxSize = maxSize;
-        return this;
+        return size.setMaxSize(maxSize);
     }
 }

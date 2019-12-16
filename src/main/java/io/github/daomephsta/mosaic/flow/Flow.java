@@ -35,7 +35,7 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
         return add(mosaicWidget, layoutData);
     }
 
-    private Flow<E> add(E mosaicWidget, FlowLayoutData layoutData)
+    public Flow<E> add(E mosaicWidget, FlowLayoutData layoutData)
     {
         children.add(mosaicWidget);
         childLayoutData.put(mosaicWidget, layoutData);

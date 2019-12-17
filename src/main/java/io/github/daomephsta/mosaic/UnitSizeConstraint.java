@@ -60,7 +60,13 @@ class UnitSizeConstraint extends SizeConstraint
 		return unit.toAbsolute(magnitude, max);
 	}
 
-	private enum Unit
+	@Override
+    public String toString()
+    {
+        return String.format("UnitSizeConstraint(magnitude: %s, unit: %s)", magnitude, unit);
+    }
+
+    private enum Unit
 	{
 		PIXELS("px")
 		{

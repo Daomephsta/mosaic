@@ -7,7 +7,13 @@ public abstract class SizeConstraint
         @Override
         public double toAbsolute(double max)
         {
-            return 0; //Guarantees that minium size will kick in
+            return 0; //Guarantees that minimum size will kick in
+        }
+
+        @Override
+        public String toString()
+        {
+            return "DEFAULT";
         }
     };
 

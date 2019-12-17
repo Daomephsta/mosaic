@@ -2,38 +2,67 @@ package io.github.daomephsta.mosaic;
 
 public class Size
 {
-    private SizeConstraint constraint;
+    private static final SizeConstraint DEFAULT_PREFERRED_SIZE = SizeConstraint.DEFAULT;
+    private static final int DEFAULT_MAX_SIZE = Integer.MAX_VALUE;
+    private static final int DEFAULT_MIN_SIZE = Integer.MIN_VALUE;
+    private SizeConstraint preferredSize;
     private int minSize,
                 maxSize;
 
     public Size()
     {
-        this.constraint = SizeConstraint.DEFAULT;
-        this.minSize = 1;
-        this.maxSize = Integer.MAX_VALUE;
+        this.preferredSize = DEFAULT_PREFERRED_SIZE;
+        this.minSize = DEFAULT_MIN_SIZE;
+        this.maxSize = DEFAULT_MAX_SIZE;
     }
 
     public int computeSize(double parentSize)
     {
         // Clamp within [minSize, maxSize] and round
-        return (int) Math.round(Math.min(Math.max(constraint.toAbsolute(parentSize), minSize), maxSize));
+        return (int) Math.ceil(Math.min(Math.max(preferredSize.toAbsolute(parentSize), minSize), maxSize));
     }
 
-    public Size setSizeConstraint(SizeConstraint constraint)
+    public void setPreferredSize(SizeConstraint preferred)
     {
-        this.constraint = constraint;
-        return this;
+        this.preferredSize = preferred;
     }
 
-    public Size setMinSize(int minSize)
+    public void setDefaultPreferredSize(SizeConstraint preferred)
+    {
+        if (this.preferredSize == DEFAULT_PREFERRED_SIZE)
+            setPreferredSize(preferred);
+    }
+
+    public void setMinSize(int minSize)
     {
         this.minSize = minSize;
-        return this;
     }
 
-    public Size setMaxSize(int maxSize)
+    public void setDefaultMinSize(int minSize)
+    {
+        if (this.minSize == DEFAULT_MIN_SIZE)
+            setMinSize(minSize);
+    }
+
+    public void setMaxSize(int maxSize)
     {
         this.maxSize = maxSize;
-        return this;
+    }
+
+    public void setDefaultMaxSize(int maxSize)
+    {
+        if (this.maxSize == DEFAULT_MAX_SIZE)
+            setMaxSize(maxSize);
+    }
+
+    public boolean isDefault()
+    {
+        return preferredSize == DEFAULT_PREFERRED_SIZE && minSize == DEFAULT_MIN_SIZE && maxSize == DEFAULT_MAX_SIZE;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Size(preferredSize: %s, minSize: %s, maxSize: %s)", preferredSize, minSize, maxSize);
     }
 }

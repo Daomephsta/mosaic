@@ -22,18 +22,45 @@ public class FlowLayoutData
         return size.computeSize(parentSize);
     }
 
-    public Size setSizeConstraint(SizeConstraint constraint)
+    public FlowLayoutData setPreferredSize(SizeConstraint preferred)
     {
-        return size.setSizeConstraint(constraint);
+        size.setPreferredSize(preferred);
+        return this;
     }
 
-    public Size setMinSize(int minSize)
+    public FlowLayoutData setDefaultPreferredSize(SizeConstraint preferred)
     {
-        return size.setMinSize(minSize);
+        size.setDefaultPreferredSize(preferred);
+        return this;
     }
 
-    public Size setMaxSize(int maxSize)
+    public FlowLayoutData setMinSize(int minSize)
     {
-        return size.setMaxSize(maxSize);
+        size.setMinSize(minSize);
+        return this;
+    }
+
+    public FlowLayoutData setDefaultMinSize(int minSize)
+    {
+        size.setDefaultMinSize(minSize);
+        return this;
+    }
+
+    public FlowLayoutData setMaxSize(int maxSize)
+    {
+        size.setMaxSize(maxSize);
+        return this;
+    }
+
+    public FlowLayoutData setDefaultMaxSize(int maxSize)
+    {
+        size.setDefaultMaxSize(maxSize);
+        return this;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("FlowLayoutData(size: %s)", size);
     }
 }

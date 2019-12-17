@@ -115,7 +115,7 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
             @Override
             void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
-            { layoutData.setMinSize(mosaicWidget.hintWidth()); }
+            { layoutData.setDefaultMinSize(mosaicWidget.hintWidth()); }
 		},
 		VERTICAL
 		{
@@ -152,7 +152,7 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 
 			@Override
 			void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
-			{ layoutData.setMinSize(mosaicWidget.hintHeight()); }
+			{ layoutData.setDefaultMinSize(mosaicWidget.hintHeight()); }
 		};
 
 		abstract void setLayoutParameters(MosaicWidget widget, int fixedCoord, int fixedDimension,

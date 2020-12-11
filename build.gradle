@@ -6,6 +6,8 @@ repositories {
     jcenter()
 }
 
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
 dependencies {
     // Use JUnit Jupiter for testing
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'

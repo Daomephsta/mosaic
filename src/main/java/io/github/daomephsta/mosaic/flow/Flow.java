@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import io.github.daomephsta.mosaic.MosaicWidget;
 import io.github.daomephsta.mosaic.ParentWidget;
 
@@ -69,13 +68,13 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 	@Override
 	public int hintHeight()
 	{
-	    return children.stream().mapToInt(MosaicWidget::hintHeight).sum();
+	    return direction.hintHeight(children);
 	}
 
 	@Override
 	public int hintWidth()
 	{
-	    return children.stream().mapToInt(MosaicWidget::hintWidth).sum();
+	    return direction.hintWidth(children);
 	}
 
 	public enum Direction
@@ -114,6 +113,14 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
             { return widget.margin().right(); }
 
             @Override
+            int hintWidth(List<? extends MosaicWidget> children)
+            { return children.stream().mapToInt(MosaicWidget::hintHeight).sum(); }
+
+            @Override
+            int hintHeight(List<? extends MosaicWidget> children)
+            { return children.stream().mapToInt(MosaicWidget::hintHeight).max().orElse(0); }
+
+            @Override
             void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
             { layoutData.setDefaultMinSize(mosaicWidget.hintWidth()); }
 		},
@@ -150,6 +157,14 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
             int getTrailingMargin(MosaicWidget widget)
             { return widget.margin().bottom(); }
 
+            @Override
+            int hintWidth(List<? extends MosaicWidget> children)
+            { return children.stream().mapToInt(MosaicWidget::hintHeight).max().orElse(0); }
+
+            @Override
+            int hintHeight(List<? extends MosaicWidget> children)
+            { return children.stream().mapToInt(MosaicWidget::hintHeight).sum(); }
+
 			@Override
 			void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData)
 			{ layoutData.setDefaultMinSize(mosaicWidget.hintHeight()); }
@@ -163,6 +178,8 @@ public class Flow<E extends MosaicWidget> extends MosaicWidget implements Parent
 		abstract int getFixedDimension(Flow<?> flow);
 		abstract int getLeadingMargin(MosaicWidget widget);
         abstract int getTrailingMargin(MosaicWidget widget);
+        abstract int hintWidth(List<? extends MosaicWidget> children);
+        abstract int hintHeight(List<? extends MosaicWidget> children);
         abstract void applyHints(MosaicWidget mosaicWidget, FlowLayoutData layoutData);
 	}
 }
